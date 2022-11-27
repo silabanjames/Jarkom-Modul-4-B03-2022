@@ -40,6 +40,49 @@
 |     | Broadcast Address | 192.174.0.11     |     |     | Broadcast Address | 192.174.0.27     |     |     | Broadcast Address | 192.174.7.255    |     |
 |     |                   |                  |     |     |                   |                  |     |     |                   |                  |     |
 
+Routing
+the dauntless:
+
+![image](https://user-images.githubusercontent.com/70903245/204136801-8747e69e-fff9-44f3-958c-9a79fb2b1e00.png)
+
+the minister:
+
+![image](https://user-images.githubusercontent.com/70903245/204136871-bc3d5125-2bbf-4a54-a1b0-c1870ffbed14.png)
+
+the order:
+
+![image](https://user-images.githubusercontent.com/70903245/204136925-70e841c9-f276-4c66-ada0-ae8bbc16e220.png)
+
+the resonance:
+
+![image](https://user-images.githubusercontent.com/70903245/204136947-03683165-3682-4524-b963-802e9bebdb46.png)
+
+![image](https://user-images.githubusercontent.com/70903245/204136956-f8710e3d-08ee-4eb9-9938-35adce4cffdd.png)
+
+![image](https://user-images.githubusercontent.com/70903245/204136966-88d63867-976b-4b2f-923e-2c2d4a32f3df.png)
+
+the magical:
+
+![image](https://user-images.githubusercontent.com/70903245/204136982-f7b7e646-4179-44d5-a759-06c73fd0a3e3.png)
+
+the instrument:
+
+![image](https://user-images.githubusercontent.com/70903245/204136993-faf6ee04-dc6f-414a-9694-004878e9b278.png)
+
+![image](https://user-images.githubusercontent.com/70903245/204137007-901e5e24-8fa6-452b-9100-7165cc1bc969.png)
+
+the profound:
+
+![image](https://user-images.githubusercontent.com/70903245/204137025-a245af3e-7f79-47fa-83ff-33356da3e117.png)
+
+the firefist:
+
+![image](https://user-images.githubusercontent.com/70903245/204137039-52764fd1-6c69-4264-83b0-11b2d9e65822.png)
+
+the queen:
+
+![image](https://user-images.githubusercontent.com/70903245/204137062-20180e38-e298-4ffc-8497-ffa69ededf25.png)
+
 ### Metode CIDR
 
 Pertama, kita perlu membuat subnet dalam topologi. Pembuatan subnet dilakukan akan mempermudah pembagian IP yang akan dilakukan
