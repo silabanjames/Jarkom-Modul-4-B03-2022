@@ -7,3 +7,486 @@
 | Maheswara Danendra Satriananda | 5025201060 |
 | James Silaban                  | 5025201169 |
 | Anak Agung Yatestha Parwata    | 5025201234 |
+
+
+### Metode VLSM
+
+### Metode CIDR
+
+Pertama, kita perlu membuat subnet dalam topologi. Pembuatan subnet dilakukan akan mempermudah pembagian IP yang akan dilakukan
+
+![image](https://user-images.githubusercontent.com/78299006/204123824-6044cb6a-c629-4773-9089-06aaba5e9343.png)
+
+Kemudian, lakukan penggabunggan kepada subnet yang paling bawah, atau paling jauh dari awan. Untuk memudahkan memilah subnet mana yang terletak di bawah, kita dapat mengubah subnet ke dalam bentuk tree.
+
+![image](https://user-images.githubusercontent.com/78299006/204123925-0167a4cd-d424-4a49-8930-0222a4c970f8.png)
+
+Gabungkan subnet paling bawah, seperti berikut
+
+![image](https://user-images.githubusercontent.com/78299006/204123948-8f0a6e83-de90-4922-b6b6-341122c8d1e2.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124517-ecb2a9a8-1ba1-40c6-bfb2-bfe275206f11.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124531-341c9761-e880-4c01-adcf-529d52aa86dd.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124676-48697040-e81a-4507-83c5-750c7633dac3.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124704-1c2d61e0-2baf-488c-9f95-149bab3334e4.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124728-f93928fa-00d1-491d-83ff-4f3832847121.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124737-68d73e63-d9a2-44d2-b34e-ec62050bcbf9.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204124748-226d2e7b-ee71-43f0-bf2e-ba356affc47f.png)
+
+Setelah didapat subnet besar yang mencakup keseluruhan topologi, maka kita akan mendapat netmask /16. Digunakan NID 129.174.0.0 dengan netmask 255.255.0.0. Lakukanlah pembagian IP berdasarkan penggabungan subnet yang telah dibuat
+
+![image](https://user-images.githubusercontent.com/78299006/204124933-1d1dd8d6-08e2-4954-ac61-40a37e3de89c.png)
+
+Berdasarkan tree tersebut, maka didapatkanlah pembgaian IP sebagai berikut:
+
+![image](https://user-images.githubusercontent.com/78299006/204125359-13e5472c-ed31-4c22-93c8-60238f59b65a.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204125368-4c6d3567-32d8-4c73-9a6d-8228a6c1be08.png)
+
+![image](https://user-images.githubusercontent.com/78299006/204125382-80c7ef6c-90b1-466c-b0c0-794ecc313e4a.png)
+
+Kemudian, aturlah pembagian ip di bagian `Edit Network Configuration` pada GNS ke setiap router dan client berdasarkan pembagian ip yang telah didapatkan. Pembagian ip pada setiap node dapat dilihat sebagai berikut:
+
+1. The Resonance (Router)
+
+```
+  auto eth0
+iface eth0 inet dhcp
+
+auto eth1
+iface eth1 inet static
+	address 192.174.64.1
+	netmask 255.255.255.252
+
+
+auto eth2
+iface eth2 inet static
+	address 192.174.130.1
+	netmask 255.255.255.252
+
+auto eth3
+iface eth3 inet static
+	address 192.174.132.1
+	netmask 255.255.255.252
+
+auto eth4
+iface eth4 inet static
+	address 192.174.0.1
+	netmask 255.255.255.252
+```
+
+2. The Order (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.64.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.96.1
+	netmask 255.255.255.192
+
+auto eth2
+iface eth2 inet static
+	address 192.174.112.1
+	netmask 255.255.255.252
+```
+
+3. Ashaf (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.96.2
+	netmask 255.255.255.192
+	gateway 192.174.96.1
+```
+
+4. The Minister(Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.112.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.120.1
+	netmask 255.255.252.0
+
+auto eth2
+iface eth2 inet static
+	address 192.174.126.1
+	netmask 255.255.255.252
+```
+
+5. Guideau (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.120.2
+	netmask 255.255.252.0
+	gateway 192.174.120.1
+```
+
+6. The Dauntless (Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.126.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.124.1
+	netmask 255.255.255.0
+```
+
+7. Phanora (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.124.2
+	netmask 255.255.255.0
+	gateway 192.174.124.1
+```
+
+8. Johan (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.124.152
+	netmask 255.255.255.0
+	gateway 192.174.124.1
+#	addressnya 192.174.124.152 karena range 2-151 dimiliki Phanora
+```
+
+9. The Beast (Server)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.132.2
+	netmask 255.255.255.252
+	gateway 192.174.132.1
+```
+
+10. The Magical (Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.130.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.128.1
+	netmask 255.255.254.0
+```
+
+11. Converkt (Host)
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.128.2
+	netmask 255.255.254.0
+	gateway 192.174.128.1
+```
+
+12. Hainess (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.128.202
+	netmask 255.255.254.0
+	gateway 192.168.0.1
+#	2-201 dimiliki oleh Converkt
+```
+
+13. The Instrument (Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.0.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.48.1
+	netmask 255.255.255.128
+
+auto eth2
+iface eth2 inet static
+	address 192.174.56.1
+	netmask 255.255.255.252
+
+auto eth3
+iface eth3 inet static
+	address 192.174.32.1
+	netmask 255.255.255.252
+```
+
+14. Matt Cugat (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.48.2
+	netmask 255.255.255.128
+	gateway 192.174.48.1
+```
+
+15. The Firefist (Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.56.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.63.1
+	netmask 255.255.255.0
+
+auto eth2
+iface eth2 inet static
+	address 192.174.60.1
+	netmask 255.255.254.0
+```
+
+16. Keith (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.63.2
+	netmask 255.255.255.0
+	gateway 192.174.63.1
+```
+
+17. The Queen (Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.63.212
+	netmask 255.255.255.0
+# address 2-211 dimiliki oleh Keith
+
+auto eth1
+iface eth1 inet static
+	address 192.174.62.1
+	netmask 255.255.255.252
+```
+
+18. The Witch (Server)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.62.2
+	netmask 255.255.255.252
+	gateway 192.174.62.1
+```
+
+19. Oakleave (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.60.2
+	netmask 255.255.254.0
+	gateway 192.174.60.1
+```
+
+20. The Prefound (Router)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.32.2
+	netmask 255.255.255.252
+
+auto eth1
+iface eth1 inet static
+	address 192.174.33.1
+	netmask 255.255.255.128
+
+auto eth2
+iface eth2 inet static
+	address 192.174.33.129
+	netmask 255.255.255.128
+```
+
+21. Spendrow (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.33.2
+	netmask 255.255.255.128
+	gateway 192.174.33.1
+```
+
+22. Helga (Host)
+
+```
+auto eth0
+iface eth0 inet static
+	address 192.174.33.130
+	netmask 255.255.255.128
+	gateway 192.174.33.129
+```
+
+Setelah ip dibagi kepada setiap node, maka sekarang akan dilakukan routing pada setiap router. Routing pada GNS3 dapat dilakukan dengan menggunakan command 
+```
+route add -net <NID subnet> netmask <netmask> gw <IP gateway>
+```
+Pada praktikum kali ini, routing dilakukan dengan membuat script dalam console setiap router. Setelah script dibuat, kemudian script tersebut dijalankan. Adapun isi script setiap router sebagai berikut:
+
+1. The Resonance
+```
+route add -net 192.174.120.0 netmask 255.255.252.0 gw 192.174.64.2
+#192.174.120.0 -> NID Guideau
+
+route add -net 192.174.124.0 netmask 255.255.252.0 gw 192.174.64.2
+#192.174.124.0 -> NID Johan dan Keith
+
+route add -net 192.174.96.0 netmask 255.255.255.192 gw 192.174.64.2
+#192.174.96.0 -> NID Asshaf
+
+route add -net 192.174.128.0 netmask 255.255.254.0 gw 192.174.130.2
+#192.174.128.0 -> NID Convekt dan Haines
+
+route add -net 192.174.48.0 netmask 255.255.255.128 gw 192.174.0.2
+#192.174.48.0 -> NID MattCugat
+
+route add -net 192.174.63.0 netmask 255.255.255.0 gw 192.174.0.2
+#192.174.63.0 -> NID Keith
+
+route add -net 192.174.62.0 netmask 255.255.255.252 gw 192.174.0.2
+#192.174.62.0 -> NID TheWitch
+
+route add -net 192.174.60.0 netmask 255.255.254.0 gw 192.174.0.2
+#192.174.60.0 -> Oakleave
+
+route add -net 192.174.33.128 netmask 255.255.255.128 gw 192.174.0.2
+#192.174.33.128 -> NID Helga
+
+route add -net 192.174.33.0 netmask 255.255.255.128 gw 192.174.0.2
+#192.174.33.0 -> NID Spendrow
+```
+
+2. The Order
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.64.1
+
+route add -net 192.174.120.0 netmask 255.255.252.0 gw 192.174.112.2
+#192.174.120.0 -> NID Guideau
+
+route add -net 192.174.124.0 netmask 255.255.252.0 gw 192.174.112.2
+#192.174.124.0 -> NID Johan dan Phanora
+```
+
+3. The Minister
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.112.1
+#192.174.112.1 -> IP GW TheOrder
+
+route add -net 192.174.124.0 netmask 255.255.255.0 gw 192.174.126.2
+#192.174.124.0 -> NID Johan dan Phanora
+```
+
+4. The Dauntless
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.126.1
+#192.174.126.1 -> IP GW TheMinister
+```
+
+5. The Magical 
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.130.1
+```
+
+6. The Instrument
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.0.1
+
+route add -net 192.174.63.0 netmask 255.255.255.0 gw 192.174.56.2
+#192.174.63.0 -> NID Keith
+
+route add -net 192.174.62.0 netmask 255.255.255.252 gw 192.174.56.2
+#192.174.62.0 -> NID TheWitch
+
+route add -net 192.174.60.0 netmask 255.255.254.0 gw 192.174.56.2
+#192.174.60.0 -> NID Oakleave
+
+###
+
+route add -net 192.174.33.128 netmask 255.255.255.128 gw 192.174.32.2
+#192.174.33.128 -> NID Helga
+
+route add -net 192.174.33.0 netmask 255.255.255.128 gw 192.174.32.2
+#192.174.33.0 -> NID Spendrow
+```
+
+7. The Prefound
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.32.1
+```
+
+8. The Firefist
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.56.1
+
+route add -net 192.174.62.0 netmask 255.255.255.252 gw 192.174.63.212
+#192.174.62.0 -> NID TheWitch
+```
+
+9. The Queen
+
+```
+route add -net 0.0.0.0 netmask 0.0.0.0 gw 192.174.63.1
+```
+
+#### Testing
+
+Setelah script dibuat dan dijalankan, kita dapat melakukan testing dengan cara melakukan ping.
+
+*Guideau(Host) ke The Resonance(Router)*
+
+![image](https://user-images.githubusercontent.com/78299006/204126950-36797205-6f30-4d5c-b661-8394db6f585c.png)
+
+*Guideau(Host) ke Spendrow(Host)*
+
+![image](https://user-images.githubusercontent.com/78299006/204127074-121ecd25-b195-413f-933d-a1459cc7259f.png)
+
+*The Helga(Host) ke The Dauntless(Router)*
+
+![image](https://user-images.githubusercontent.com/78299006/204127219-aa59a706-b0c8-4280-b86d-b1561b458af4.png)
+
+
